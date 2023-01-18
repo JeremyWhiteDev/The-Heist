@@ -9,45 +9,80 @@ string name;
 
 do
 {
-Console.WriteLine("Please enter your name.");
+Console.Write("Please enter the team member's name: ");
     name = Console.ReadLine();
-    if (String.IsNullOrWhiteSpace(name))
+    while (String.IsNullOrWhiteSpace(name) && name != "quit")
      {
-        continue;
+        Console.Clear();
+        Console.Write("Please enter the team member's name (or type 'quit': ");
+        name = Console.ReadLine();
+       
+    }
+    if (name == "quit")
+    {
+        break;
     }
     TeamMember currentMember = new TeamMember();
     currentMember.Name = name;
 
-    Console.WriteLine("Please enter your skill level.");
+    Console.Write("Please enter the team member's skill level: ");
 
-    currentMember.SkillLevel = int.Parse(Console.ReadLine());
+    int parsedSkill;
 
-    Console.WriteLine("Please enter your courage level.");
+    bool skillWasParsed = int.TryParse(Console.ReadLine(), out parsedSkill);
+   while ( !skillWasParsed || parsedSkill > 100 || parsedSkill <0)
+    {
+        Console.Write("Please enter the team member's skill level (0-100): ");
+        skillWasParsed = int.TryParse(Console.ReadLine(), out parsedSkill);
 
-    currentMember.CourageLevel = double.Parse(Console.ReadLine());
+    }
+
+    currentMember.SkillLevel = parsedSkill;
+
+
+    Console.Write("Please enter the team member's courage level: ");
+
+    double parsedCourage;
+    bool courageWasParsed = double.TryParse(Console.ReadLine(), out parsedCourage);
+    while (!courageWasParsed || parsedCourage > 3 || parsedCourage < 0)
+    {
+        Console.Write("Please enter the team member's courage level (0-3.0): ");
+        skillWasParsed = double.TryParse(Console.ReadLine(), out parsedCourage);
+
+    }
+
+
+    currentMember.CourageLevel = parsedCourage;
 
     Console.Clear();
     roster.members.Add(currentMember);
 
-    string welcome = @$"Name: {currentMember.Name}
-Skill Level: {currentMember.SkillLevel}
-Courage Level: {currentMember.CourageLevel}";
-        Console.WriteLine(welcome);
+   
+        Console.WriteLine($"{currentMember.Name} was added to the team");
+    Console.WriteLine("Your team consists of: ");
+    foreach (var member in roster.members)
+    {
+        Console.WriteLine(member.ToString());
+    }
+    Console.Write("do you have more members to add? (y/n)");
+    string addMoreMembers = Console.ReadLine();
+    if (addMoreMembers == "n")
+    {
+        break;
+    }
+
 }
 while (!String.IsNullOrWhiteSpace(name));
 
 Console.Clear();
+Console.WriteLine("Your team consists of: ");
 foreach (var member in roster.members)
 {
-    Console.WriteLine($"Name: {member.Name}, skill level: {member.SkillLevel}");
-   
+    Console.WriteLine(member.ToString());
 }
 
 Console.ReadLine();
 //Phase 2:
 
-//Create a way to store several team members. 
+//Create a way to store several team members.
 
-string whatever = null;
-
-int length = whatever.Length;
