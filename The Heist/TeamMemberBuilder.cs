@@ -2,11 +2,12 @@
 
 public class TeamMemberBuilder
 {
-    public void Run()
+    public Crew Crew = new Crew();
+
+   
+    public Crew Run()
     {
         Console.WriteLine("Plan Your Heist!");
-
-        Roster roster = new Roster();
 
         string name;
 
@@ -30,10 +31,10 @@ public class TeamMemberBuilder
 
             Console.Write("Please enter the team member's skill level: ");
 
-            int parsedSkill;
+         
 
-            bool skillWasParsed = int.TryParse(Console.ReadLine(), out parsedSkill);
-            while (!skillWasParsed || parsedSkill > 100 || parsedSkill < 0)
+            bool skillWasParsed = int.TryParse(Console.ReadLine(), out int parsedSkill);
+            while (!skillWasParsed || parsedSkill > 100 || parsedSkill <= 0)
             {
                 Console.Write("Please enter the team member's skill level (0-100): ");
                 skillWasParsed = int.TryParse(Console.ReadLine(), out parsedSkill);
@@ -45,9 +46,9 @@ public class TeamMemberBuilder
 
             Console.Write("Please enter the team member's courage level: ");
 
-            double parsedCourage;
-            bool courageWasParsed = double.TryParse(Console.ReadLine(), out parsedCourage);
-            while (!courageWasParsed || parsedCourage > 3 || parsedCourage < 0)
+ 
+            bool courageWasParsed = double.TryParse(Console.ReadLine(), out double parsedCourage);
+            while (!courageWasParsed || parsedCourage > 3.0 || parsedCourage < 0.0)
             {
                 Console.Write("Please enter the team member's courage level (0-3.0): ");
                 skillWasParsed = double.TryParse(Console.ReadLine(), out parsedCourage);
@@ -58,12 +59,12 @@ public class TeamMemberBuilder
             currentMember.CourageLevel = parsedCourage;
 
             Console.Clear();
-            roster.members.Add(currentMember);
+            Crew.Members.Add(currentMember);
 
 
             Console.WriteLine($"{currentMember.Name} was added to the team");
             Console.WriteLine("Your team consists of: ");
-            foreach (var member in roster.members)
+            foreach (var member in Crew.Members)
             {
                 Console.WriteLine(member.ToString());
             }
@@ -78,10 +79,7 @@ public class TeamMemberBuilder
         while (!String.IsNullOrWhiteSpace(name));
 
         Console.Clear();
-        Console.WriteLine("Your team consists of: ");
-        foreach (var member in roster.members)
-        {
-            Console.WriteLine(member.ToString());
-        }
+        return Crew;
+        
     }
 }
