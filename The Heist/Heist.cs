@@ -14,17 +14,20 @@ public class Heist
 
        Crew = TeamMemberBuilder.Run();
 
+
         Crew.PrintMyCrew();
         Crew.PrintCrewScore();
 
-        Bank.Difficulty = 100;
+        Bank.Difficulty = 100 + Bank.Luck;
         int CrewScore = Crew.CrewScore;
 
-        Console.WriteLine("Press Enter to being the heist!");
+        Console.WriteLine($"The Bank's difficulty is {Bank.Difficulty} & Your Crew's Combined skill level is {CrewScore}");
+        Console.WriteLine($"Press Enter to being the heist!");
         Console.ReadLine();
         if (CrewScore >= Bank.Difficulty) 
         {
             Console.WriteLine("Success!");
+     
         }
         else
         {
